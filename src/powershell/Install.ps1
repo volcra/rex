@@ -1,27 +1,37 @@
 param(
+    [Alias('c')]
     [string]$command,
+    [Alias('p')]
     [string]$packageName,
+    [Alias('d')]
+    [string]$directory,
+    [Alias('v')]
     [string]$version,
-    [string]$url,
-    [string]$directory
+    [Alias('u')]
+    [string]$url
 )
 
-Import-Module $PSScriptRoot\InstallModule.psm1
+$scriptRoot = (Split-Path -Parent $MyInvocation.MyCommand.Path)
+$packagesRoot = ((Get-Item $scriptRoot).parent.parent.FullName)
+
+Import-Module $scriptRoot\InstallModule.psm1
 
 $params = ""
-$h1 = "=" * 80
+$h1 = "-" * 80
 
-if (!(Test-NullOrEmpy $version)) {  $params = "$params -Version $version" }
-if (!(Test-NullOrEmpy $url)) {  $params = "$params -URL $url" }
-if (!(Test-NullOrEmpy $directory)) {  $params = "$params -Directory $directory" }
+if (!(Test-NullOrEmpy $version)) {  $params = "$params -Version $version".Trim() }
+if (!(Test-NullOrEmpy $url)) {  $params = "$params -URL $url".Trim() }
+if (!(Test-NullOrEmpy $directory)) {  $params = "$params -Directory $directory".Trim() }
 
 switch -wildcard ($command) {
     "Install" {
-        . (Get-ChildItem $pwd -Recurse | ?{$_.Name -Match "$packageName.ps1"} | Select -First 1).FullName
+        . (Get-ChildItem $packagesRoot -Recurse | ?{$_.Name -Match "$packageName.ps1"} | Select -First 1).FullName
 
         $command = "Install-$packageName $params"
-        Write-Host "Invoking $command"  -ForegroundColor Green
+
+        Write-Host "Invoking $command" -ForegroundColor Green
         Write-Host $h1 -ForegroundColor Green
+
         Invoke-Expression $command
     }
 
