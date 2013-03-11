@@ -39,6 +39,10 @@ switch -wildcard ($command) {
         Show-RexHelp
     }
 
+    "Version" {
+        Show-Version
+    }
+
     default {
         Show-RexHelp
     }

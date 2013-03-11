@@ -15,7 +15,7 @@ function Install-Cygwin($version='1.7.17-1', $url='http://cygwin.com/setup.exe',
 	#. $exe -D -P p7zip,zip,unzip,curl,wget,vim,openssh -R $root -l $localPackageDir -q -n
 	#Start-Process -FilePath $exe -ArgumentList "-D", "-P", "p7zip,zip,unzip,curl,wget,vim,openssh", "-R", $root, "-l", $setup, "-q", "-n"
 	. $exe
-	Write-Host "Installation will continue in Cygwin setup."
+	Write-Host "Installation will continue on Cygwin setup."
 
 #io_stream_cygfile: fopen(/etc/setup/net-proxy-host) failed 2 No such file or directory
 #io_stream_cygfile: fopen(/etc/setup/net-proxy-port) failed 2 No such file or directory

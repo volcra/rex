@@ -1,13 +1,6 @@
 function Install-Rhino($version='1_7R4', $url="https://github.com/downloads/mozilla/rhino/rhino1_7R4.zip", $directory='C:\temp\bin\rhino') {
+	Install-Zip "rhino" $version $url $directory "rhino$version"
 	$rhinoHome = Join-Path $directory $version
-	$fileName = [System.IO.Path]::GetFileName($url)
-	$file = Join-Path $directory $fileName
-
-	New-Directory $directory
-	Get-WebFile $url $file
-	UnZip $file $directory
-	Remove-Item $file
-	Move-Item $directory\"rhino$version" $rhinoHome
 	Set-Env "RHINO_HOME" $rhinoHome
 
 	# commands
