@@ -23,7 +23,7 @@ if (!(Test-NullOrEmpy $version)) {  $params = "$params -Version $version".Trim()
 if (!(Test-NullOrEmpy $url)) {  $params = "$params -URL $url".Trim() }
 if (!(Test-NullOrEmpy $directory)) {  $params = "$params -Directory $directory".Trim() }
 
-switch -wildcard ($command) {
+switch -regex ($command) {
     "Install" {
         . (Get-ChildItem $packagesRoot -Recurse | ?{$_.Name -Match "$packageName.ps1"} | Select -First 1).FullName
 
@@ -35,7 +35,7 @@ switch -wildcard ($command) {
         Invoke-Expression $command
     }
 
-    "Help" {
+    "(help|\-[h]|/[?])" {
         Show-RexHelp
     }
 

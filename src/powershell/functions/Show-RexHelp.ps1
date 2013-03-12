@@ -19,12 +19,36 @@ $h1
 "@ | Write-Host -ForegroundColor Red
 
 @"
-Rex is a very simple and basic package manager
+Rex is a very simple and basic package manager. It uses PowerShell to script
+common tasks.
 
-Usage
------
+HELP
+    The following options will show this help.
 
-rex /? | -? | ? | /help | help
+    rex
+    rex /? | help | -h
+
+PARAMETERS
+    -Command
+        The command to execute. Posible values are:
+
+        Version
+            Prints out version information.
+
+        Install
+            Installs a package.
+
+    -PackageName
+        Name of the package to install.
+
+    -Directory
+        Base directory for the installer.
+
+    -Version
+        Version to install.
+
+    -URL
+        The URL of the package.
 
 EXAMPLES
     rex Install Groovy
@@ -34,5 +58,5 @@ EXAMPLES
     rex -Command Install -PackageName Groovy -Directory C:\bin\groovy
     rex -c Install -p Groovy -d C:\bin\groovy
 
-"@ | Write-Host -ForegroundColor Green
+"@ | Write-Host -ForegroundColor White
 }
