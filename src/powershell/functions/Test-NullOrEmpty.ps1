@@ -1,3 +1,3 @@
-function Test-NullOrEmpy([string]$str) {
+function Test-NullOrEmpty([string]$str) {
 	return ($str -eq "" -or $str -eq $Null)
 }

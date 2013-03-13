@@ -1,11 +1,18 @@
 function Install-Zip($packageName, $version, $url, $directory, $content="$packageName-$version") {
-	$fileName = [System.IO.Path]::GetFileName($url)
-	$file = Join-Path $directory $fileName
-	$extract = Join-Path $directory $content
+    $fileName = [System.IO.Path]::GetFileName($url)
 
-	New-Directory $directory
-	Get-WebFile $url $file
-	UnZip $file $directory
-	Remove-Item $file
-	Move-Item -Force $extract (Join-Path $directory $version)
+    if (Test-NullOrEmpty $fileName) {
+        $fileName = "$content.zip"
+    }
+
+    Write-Host "----- $fileName"
+
+    $file = Join-Path $directory $fileName
+    $extract = Join-Path $directory $content
+
+    New-Directory $directory
+    Get-WebFile $url $file
+    UnZip $file $directory
+    Remove-Item $file
+    Move-Item -Force $extract (Join-Path $directory $version)
 }

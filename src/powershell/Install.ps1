@@ -19,14 +19,21 @@ Import-Module $scriptRoot\InstallModule.psm1
 $params = ""
 $h1 = "-" * 80
 
-if (!(Test-NullOrEmpy $version)) {  $params = "$params -Version $version".Trim() }
-if (!(Test-NullOrEmpy $url)) {  $params = "$params -URL $url".Trim() }
-if (!(Test-NullOrEmpy $directory)) {  $params = "$params -Directory $directory".Trim() }
+if (!(Test-NullOrEmpty $version)) { $params = "$params -Version $version".Trim() }
+if (!(Test-NullOrEmpty $url)) { $params = "$params -URL $url".Trim() }
+if (!(Test-NullOrEmpty $directory)) { $params = "$params -Directory $directory".Trim() }
 
 switch -regex ($command) {
     "Install" {
-        . (Get-ChildItem $packagesRoot -Recurse | ?{$_.Name -Match "$packageName.ps1"} | Select -First 1).FullName
+        $script = (Get-ChildItem $packagesRoot -Recurse | ?{$_.Name -Match "$packageName.ps1"} | Select -First 1).FullName
 
+        if (Test-NullOrEmpty $script) {
+            Throw "Can't find package with name $packageName to install"
+        }
+
+        . $script
+
+        Get-Command "Install-$packageName" -Type Function -ErrorAction Stop | Out-Null
         $command = "Install-$packageName $params"
 
         Write-Host "Invoking $command" -ForegroundColor Green
