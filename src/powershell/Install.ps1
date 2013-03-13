@@ -25,8 +25,15 @@ if (!(Test-NullOrEmpty $directory)) { $params = "$params -Directory $directory".
 
 switch -wildcard ($command) {
     "Install" {
-        . (Get-ChildItem $packagesRoot -Recurse | ?{$_.Name -Match "$packageName.ps1"} | Select -First 1).FullName
+        $script = (Get-ChildItem $packagesRoot -Recurse | ?{$_.Name -Match "$packageName.ps1"} | Select -First 1).FullName
 
+        if (Test-NullOrEmpty $script) {
+            Throw "Can't find package with name $packageName to install"
+        }
+
+        . $script
+
+        Get-Command "Install-$packageName" -Type Function -ErrorAction Stop | Out-Null
         $command = "Install-$packageName $params"
 
         Write-Host "Invoking $command" -ForegroundColor Green
