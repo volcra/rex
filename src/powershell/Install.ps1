@@ -19,9 +19,9 @@ Import-Module $scriptRoot\InstallModule.psm1
 $params = ""
 $h1 = "-" * 80
 
-if (!(Test-NullOrEmpy $version)) {  $params = "$params -Version $version".Trim() }
-if (!(Test-NullOrEmpy $url)) {  $params = "$params -URL $url".Trim() }
-if (!(Test-NullOrEmpy $directory)) {  $params = "$params -Directory $directory".Trim() }
+if (!(Test-NullOrEmpty $version)) { $params = "$params -Version $version".Trim() }
+if (!(Test-NullOrEmpty $url)) { $params = "$params -URL $url".Trim() }
+if (!(Test-NullOrEmpty $directory)) { $params = "$params -Directory $directory".Trim() }
 
 switch -wildcard ($command) {
     "Install" {
