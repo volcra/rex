@@ -14,7 +14,7 @@ param(
 $scriptRoot = (Split-Path -Parent $MyInvocation.MyCommand.Path)
 $packagesRoot = ((Get-Item $scriptRoot).parent.parent.FullName)
 
-Import-Module $scriptRoot\InstallModule.psm1
+Import-Module $scriptRoot\RexModule.psm1
 
 $params = ""
 $h1 = "-" * 80

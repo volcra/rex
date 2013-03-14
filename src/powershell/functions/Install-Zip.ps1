@@ -5,8 +5,6 @@ function Install-Zip($packageName, $version, $url, $directory, $content="$packag
         $fileName = "$content.zip"
     }
 
-    Write-Host "----- $fileName"
-
     $file = Join-Path $directory $fileName
     $extract = Join-Path $directory $content
 
