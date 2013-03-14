@@ -12,4 +12,7 @@ function Install-Jenkins($version='1.505', $url="http://ftp-chi.osuosl.org/pub/j
 
 	Write-Host "Installation will continue on Jenkins setup." -ForegroundColor Yellow
 	. $exe
+
+    Write-Host "Press any key to continue ..." -ForegroundColor Cyan
+    $x = $host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
 }

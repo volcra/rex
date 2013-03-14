@@ -4,4 +4,7 @@ function Install-SlikSvn($version='1.7.8-x64', $url="http://www.sliksvn.com/pub/
     Write-Host "Running $exe" -ForegroundColor Yellow
     Write-Host "Installation will continue on Subversion setup." -ForegroundColor Yellow
     . $exe
+
+    Write-Host "Press any key to continue ..." -ForegroundColor Cyan
+    $x = $host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
 }
